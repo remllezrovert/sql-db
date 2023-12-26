@@ -1,0 +1,100 @@
+# Populate Themes table
+#USE Metal;
+#SELECT MAX(char_length(theme) - char_length(replace(theme, ',',''))) FROM Staging;
+
+INSERT IGNORE INTO Theme (themeName)
+WITH CTE AS (
+SELECT REPLACE(theme, ';', ',') AS theme
+FROM (
+	SELECT REPLACE(theme, '/', ',') AS theme
+    FROM (
+	SELECT
+	(CASE
+	WHEN lyricalThemes LIKE '%(%)%'
+	THEN CONCAT(
+		TRIM(SUBSTRING_INDEX(SUBSTRING_INDEX(lyricalThemes, '(', 1), ')', -1)),
+	    TRIM(SUBSTRING_INDEX(SUBSTRING_INDEX(lyricalThemes, '(', 2), ')', -1)),
+	    TRIM(SUBSTRING_INDEX(SUBSTRING_INDEX(lyricalThemes, '(', 3), ')', -1)),
+	    TRIM(SUBSTRING_INDEX(SUBSTRING_INDEX(lyricalThemes, '(', 4), ')', -1)),
+	    TRIM(SUBSTRING_INDEX(SUBSTRING_INDEX(lyricalThemes, '(', 5), ')', -1)),
+        TRIM(SUBSTRING_INDEX(SUBSTRING_INDEX(lyricalThemes, '(', 6), ')', -1)),
+        TRIM(SUBSTRING_INDEX(SUBSTRING_INDEX(lyricalThemes, '(', 7), ')', -1))
+	    )
+	ELSE lyricalThemes 
+	END) AS theme
+	FROM Staging
+        WHERE lyricalThemes <> 'N/A' AND lyricalThemes IS NOT NULL
+    ) AS E1
+) AS E
+)
+SELECT DISTINCT(
+CASE
+WHEN CHAR_LENGTH(theme) - CHAR_LENGTH(REPLACE(theme, ',', '')) > 0
+THEN TRIM(SUBSTRING_INDEX(SUBSTRING_INDEX(theme, ',', 2), ',', -1))
+END) AS theme
+FROM CTE UNION
+SELECT DISTINCT(
+CASE
+WHEN CHAR_LENGTH(theme) - CHAR_LENGTH(REPLACE(theme, ',', '')) > 1
+THEN TRIM(SUBSTRING_INDEX(SUBSTRING_INDEX(theme, ',', 3), ',', -1))
+END)
+FROM CTE UNION
+SELECT DISTINCT(
+CASE
+WHEN CHAR_LENGTH(theme) - CHAR_LENGTH(REPLACE(theme, ',', '')) > 2
+THEN TRIM(SUBSTRING_INDEX(SUBSTRING_INDEX(theme, ',', 4), ',', -1))
+END)
+FROM CTE UNION
+SELECT DISTINCT(
+CASE
+WHEN CHAR_LENGTH(theme) - CHAR_LENGTH(REPLACE(theme, ',', '')) > 3
+THEN TRIM(SUBSTRING_INDEX(SUBSTRING_INDEX(theme, ',', 5), ',', -1))
+END)
+FROM CTE UNION
+SELECT DISTINCT(
+CASE
+WHEN CHAR_LENGTH(theme) - CHAR_LENGTH(REPLACE(theme, ',', '')) > 4
+THEN TRIM(SUBSTRING_INDEX(SUBSTRING_INDEX(theme, ',', 6), ',', -1))
+END)
+FROM CTE UNION
+SELECT DISTINCT(
+CASE
+WHEN CHAR_LENGTH(theme) - CHAR_LENGTH(REPLACE(theme, ',', '')) > 5
+THEN TRIM(SUBSTRING_INDEX(SUBSTRING_INDEX(theme, ',', 7), ',', -1))
+END)
+FROM CTE UNION
+SELECT DISTINCT(
+CASE
+WHEN CHAR_LENGTH(theme) - CHAR_LENGTH(REPLACE(theme, ',', '')) > 6
+THEN TRIM(SUBSTRING_INDEX(SUBSTRING_INDEX(theme, ',', 8), ',', -1))
+END)
+FROM CTE UNION
+SELECT DISTINCT(
+CASE
+WHEN CHAR_LENGTH(theme) - CHAR_LENGTH(REPLACE(theme, ',', '')) > 7
+THEN TRIM(SUBSTRING_INDEX(SUBSTRING_INDEX(theme, ',', 9), ',', -1))
+END)
+FROM CTE UNION
+SELECT DISTINCT(
+CASE
+WHEN CHAR_LENGTH(theme) - CHAR_LENGTH(REPLACE(theme, ',', '')) > 7
+THEN TRIM(SUBSTRING_INDEX(SUBSTRING_INDEX(theme, ',', 9), ',', -1))
+END)
+FROM CTE UNION
+SELECT DISTINCT(
+CASE
+WHEN CHAR_LENGTH(theme) - CHAR_LENGTH(REPLACE(theme, ',', '')) > 7
+THEN TRIM(SUBSTRING_INDEX(SUBSTRING_INDEX(theme, ',', 9), ',', -1))
+END)
+FROM CTE UNION
+SELECT DISTINCT(
+CASE
+WHEN CHAR_LENGTH(theme) - CHAR_LENGTH(REPLACE(theme, ',', '')) > 8
+THEN TRIM(SUBSTRING_INDEX(SUBSTRING_INDEX(theme, ',', 10), ',', -1))
+END)
+FROM CTE;
+
+
+
+
+

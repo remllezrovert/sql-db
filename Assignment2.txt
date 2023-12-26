@@ -1,0 +1,40 @@
+Query 1
+
+Description
+	Pick the widgets with the word "thing" in their name, and a price between eight and ten dollars.
+
+
+
+
+
+
+
+Query 2
+
+Description
+	I only want to see the courses that have an instructor and a room number.
+
+
+
+
+
+Query 3
+
+Description
+	If a student has a graduation date and the name of their program starts with a T, I want to see their last name and program name.
+
+
+
+Query 4
+
+
+Description
+	Show me every product with a unique name that sold in june after 2020
+
+
+
+
+Query 5
+
+Description:
+	Show me the employees with over 25 years of experiance, aswell as the president, vice-president, and assosite vice president.
